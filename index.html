@@ -123,11 +123,11 @@
     <a href="#work">Work</a>
     <a href="#research">Research</a>
     <a href="#mountains">Mountains</a>
+    <a href="#connection">Connection</a>
     <span class="sep" aria-hidden="true"></span>
     <a rel="me" href="https://www.linkedin.com/in/woodjmichael">LinkedIn</a>
     <a href="https://docs.google.com/document/d/1JbGrGIS2jf3jPQ3JPzXQ7xM6bkz99uhGWQ_zGdh6t3E/edit?usp=drivesdk">Resume</a>
     <a rel="me" href="https://github.com/woodjmichael">GitHub</a>
-    <a href="#" id="mail">Email</a>
   </div>
 </nav>
 
@@ -190,6 +190,11 @@
     </blockquote>
   </section>
 
+  <section id="connection">
+    <h2>Connection</h2>
+    <p>If you'd like to say hello, look me up on <a rel="me" href="https://www.linkedin.com/in/woodjmichael">LinkedIn</a> or <a rel="me" href="https://github.com/woodjmichael">GitHub</a>.</p>
+  </section>
+
   <footer>
     <span>&copy; <span id="yr">2026</span> Michael Wood</span>
     <span>Lecco, Italy</span>
@@ -197,20 +202,25 @@
 </main>
 
 <script>
-  // Email assembled at runtime to avoid trivial scraping.
-  document.getElementById('mail').href = 'mailto:' + ['woodjmichael', 'gmail.com'].join('@');
   document.getElementById('yr').textContent = new Date().getFullYear();
 
   // Highlight the current section in the menu.
   (function () {
-    var links = {}, ids = ['story', 'work', 'research', 'mountains'];
+    var links = {}, ids = ['story', 'work', 'research', 'mountains', 'connection'],
+        bar = document.querySelector('.bar-inner');
     ids.forEach(function (id) { links[id] = document.querySelector('.bar a[href="#' + id + '"]'); });
     function update() {
       var cur = null, y = window.scrollY + 200;
       ids.forEach(function (id) { var el = document.getElementById(id); if (el && el.offsetTop <= y) cur = id; });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) cur = ids[ids.length - 1];
       ids.forEach(function (id) { links[id].classList.toggle('on', id === cur); });
+      // Slide the menu along with the page, ending at LinkedIn / GitHub.
+      var max = bar.scrollWidth - bar.clientWidth, h = document.documentElement;
+      var total = h.scrollHeight - h.clientHeight;
+      if (max > 0 && total > 0) bar.scrollLeft = Math.min(1, Math.max(0, window.scrollY / total)) * max;
     }
     addEventListener('scroll', update, { passive: true });
+    addEventListener('resize', update);
     update();
   })();
 
