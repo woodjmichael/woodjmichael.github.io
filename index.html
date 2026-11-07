@@ -101,7 +101,6 @@
     blockquote { margin: 2.5rem 0 0; padding: 0; text-align: center; font-style: italic; color: var(--muted); font-size: 1.05rem; }
     blockquote cite { display: block; font: .72rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; margin-top: .6rem; font-style: normal; }
 
-    footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line); font: .75rem/1.6 var(--sans); color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; }
 
     /* sparks */
     .spark { position: fixed; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); pointer-events: none; z-index: 30; animation: fly .7s ease-out forwards; }
@@ -188,14 +187,9 @@
     <p>If you'd like to say hello, look me up on <a rel="me" href="https://www.linkedin.com/in/woodjmichael">LinkedIn</a> or <a rel="me" href="https://github.com/woodjmichael">GitHub</a>.</p>
   </section>
 
-  <footer>
-    <span>&copy; <span id="yr">2026</span> Michael Wood</span>
-    <span>Lecco, Italy</span>
-  </footer>
 </main>
 
 <script>
-  document.getElementById('yr').textContent = new Date().getFullYear();
 
   // Highlight the current section in the menu.
   (function () {
