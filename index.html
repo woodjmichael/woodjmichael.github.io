@@ -9,6 +9,7 @@
   <style>
     :root {
       --bg: #faf8f4;
+      --bg-glass: rgba(250, 248, 244, .86);
       --fg: #1f1d1a;
       --muted: #7a746b;
       --line: #e4dfd6;
@@ -19,6 +20,7 @@
     @media (prefers-color-scheme: dark) {
       :root {
         --bg: #14130f;
+        --bg-glass: rgba(20, 19, 15, .86);
         --fg: #ece8df;
         --muted: #8f897d;
         --line: #2a2822;
@@ -35,26 +37,40 @@
       -webkit-font-smoothing: antialiased;
       transition: background .3s, color .3s;
     }
-    main { max-width: 40rem; margin: 0 auto; padding: 6rem 1.5rem 4rem; }
+    main { max-width: 40rem; margin: 0 auto; padding: 4rem 1.5rem 4rem; }
     a { color: inherit; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: .25em; text-decoration-thickness: 1px; transition: text-decoration-color .2s, color .2s; }
     a:hover, a:focus-visible { color: var(--accent); text-decoration-color: var(--accent); }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
     ::selection { background: var(--accent); color: var(--bg); }
 
-    h1 { font-weight: 400; font-size: clamp(2.4rem, 8vw, 3.4rem); line-height: 1.1; letter-spacing: -.02em; margin: 0 0 .4rem; }
-    h1 button {
-      all: unset; cursor: pointer; color: var(--accent); display: inline-block;
-      transition: transform .3s;
+    /* sticky menu */
+    .bar {
+      position: sticky; top: 0; z-index: 20;
+      background: var(--bg-glass);
+      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      transition: background .3s;
     }
+    .bar-inner {
+      max-width: 52rem; margin: 0 auto; padding: 0 1.5rem;
+      display: flex; align-items: center; gap: 1.3rem;
+      overflow-x: auto; scrollbar-width: none; white-space: nowrap;
+      font: .72rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase;
+    }
+    .bar-inner::-webkit-scrollbar { display: none; }
+    .bar a { text-decoration: none; padding: 1.15rem 0 1.05rem; border-bottom: 1px solid transparent; color: var(--muted); }
+    .bar a:hover, .bar a.on { color: var(--fg); }
+    .bar a.on { border-bottom-color: var(--accent); }
+    .bar .sep { width: 1px; height: 1rem; background: var(--line); flex: none; }
+
+    section, header { scroll-margin-top: 3.5rem; }
+    h1 { font-weight: 400; font-size: clamp(2.4rem, 8vw, 3.4rem); line-height: 1.1; letter-spacing: -.02em; margin: 2.5rem 0 .4rem; }
+    h1 button { all: unset; cursor: pointer; color: var(--accent); display: inline-block; transition: transform .3s; }
     h1 button:hover { transform: rotate(20deg) scale(1.15); }
     h1 button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
-    .tagline { color: var(--muted); font-style: italic; margin: 0 0 2.2rem; }
-
-    .links { display: flex; flex-wrap: wrap; gap: .6rem 1.6rem; font: .8rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; margin: 2.2rem 0 0; }
-    .links a { text-decoration: none; padding-bottom: .35rem; border-bottom: 1px solid var(--line); }
-    .links a:hover { border-color: var(--accent); }
+    .tagline { color: var(--muted); font-style: italic; margin: 0; }
 
     p { margin: 0 0 1.2rem; }
-    .lede { font-size: 1.2rem; }
 
     /* load curve */
     .curve { margin: 2.5rem 0 0; color: var(--muted); }
@@ -70,11 +86,8 @@
     h2 { font: .75rem/1 var(--sans); letter-spacing: .18em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin: 0 0 1.6rem; display: flex; align-items: center; gap: 1rem; }
     h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 
-    .row { display: grid; grid-template-columns: 7.5rem 1fr; gap: .2rem 1.5rem; margin-bottom: 1.4rem; }
-    .row .when { font: .8rem/1.9 var(--sans); color: var(--muted); font-variant-numeric: tabular-nums; }
-    .row .what strong { font-weight: 600; }
-    .row .what span { display: block; color: var(--muted); font-size: .95rem; line-height: 1.55; }
-    @media (max-width: 36rem) { .row { grid-template-columns: 1fr; } .row .when { line-height: 1.4; } }
+    .story p { font-size: 1.15rem; line-height: 1.75; }
+    .story p.kicker { color: var(--muted); font-style: italic; margin-top: 2rem; }
 
     ul.plain { list-style: none; padding: 0; margin: 0; }
     ul.plain li { margin-bottom: .9rem; font-size: .98rem; line-height: 1.55; }
@@ -82,17 +95,17 @@
     .small { font-size: .95rem; color: var(--muted); }
     .small b { color: var(--fg); font-weight: 600; }
 
-    figure.photo { margin: 4.5rem 0 0; }
+    figure.photo { margin: 0; }
     figure.photo img { width: 100%; border-radius: 4px; display: block; filter: saturate(.9); }
     figure.photo figcaption { font-size: .85rem; color: var(--muted); font-style: italic; margin-top: .7rem; }
 
-    blockquote { margin: 4rem 0 0; padding: 0; text-align: center; font-style: italic; color: var(--muted); font-size: 1.05rem; }
+    blockquote { margin: 2.5rem 0 0; padding: 0; text-align: center; font-style: italic; color: var(--muted); font-size: 1.05rem; }
     blockquote cite { display: block; font: .72rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; margin-top: .6rem; font-style: normal; }
 
     footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line); font: .75rem/1.6 var(--sans); color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; }
 
     /* sparks */
-    .spark { position: fixed; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); pointer-events: none; z-index: 10; animation: fly .7s ease-out forwards; }
+    .spark { position: fixed; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); pointer-events: none; z-index: 30; animation: fly .7s ease-out forwards; }
     @keyframes fly { to { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; } }
 
     @media (prefers-reduced-motion: reduce) {
@@ -104,11 +117,24 @@
   </style>
 </head>
 <body>
-<main>
+<nav class="bar" aria-label="Sections">
+  <div class="bar-inner">
+    <a href="#story">Story</a>
+    <a href="#work">Work</a>
+    <a href="#research">Research</a>
+    <a href="#mountains">Mountains</a>
+    <span class="sep" aria-hidden="true"></span>
+    <a rel="me" href="https://www.linkedin.com/in/woodjmichael">LinkedIn</a>
+    <a href="https://docs.google.com/document/d/1JbGrGIS2jf3jPQ3JPzXQ7xM6bkz99uhGWQ_zGdh6t3E/edit?usp=drivesdk">Resume</a>
+    <a rel="me" href="https://github.com/woodjmichael">GitHub</a>
+    <a href="#" id="mail">Email</a>
+  </div>
+</nav>
+
+<main id="top">
   <header>
     <h1>Michael Wood<button id="spark" aria-label="Make a spark" title="Go on, touch both terminals">.</button></h1>
     <p class="tagline">Renewable energy engineer. Lecco, Italy.</p>
-    <p class="lede">I design and optimize distributed energy systems: microgrids, load and PV forecasting, and the dispatch decisions in between.</p>
 
     <figure class="curve" aria-hidden="true">
       <svg viewBox="0 0 600 56" preserveAspectRatio="none">
@@ -119,49 +145,24 @@
     </figure>
   </header>
 
-  <section id="about">
-    <h2>About</h2>
-    <p>It started around age ten, watching my grandfather swap the battery in our little fishing boat. He touched the wrench across both terminals and showered us in sparks. I was more intrigued than scared.</p>
-    <p>Since then I've taken apart computers, built a solar cell from scratch, and installed hydroelectric turbines in Rwanda. Now I do it with fancier tools, and I'm forever grateful for that original spark.</p>
-    <p class="small">Away from the screen: ski touring and mountaineering, bike touring, climbing, ukulele, gluten-free cooking, photography, and an unreasonable number of audiobooks.</p>
+  <section id="story" class="story">
+    <h2>Story</h2>
+    <p>I live in Lecco. The lake is at the bottom and the rock starts right behind town.</p>
+    <p>I spend as much time as I can up there. Skis on my back, or a rope, or a bike with too many bags.</p>
+    <p>It started with a spark, though. My grandfather, a boat battery and a wrench. I was ten and fascinated.</p>
+    <p>You notice things in the mountains. Snow comes later. Glaciers pull back between visits. Old photos look like other places.</p>
+    <p>I can't fix that with a wrench. But I do know electricity.</p>
+    <p>So I design microgrids. Solar, batteries, and a lot of Python. The goal is simple: burn less of what shouldn't be burned.</p>
+    <p>The mountains also taught me how to plan. You check the forecast, then assume it's wrong, and you leave yourself a margin.</p>
+    <p>Load forecasting is the same game. The forecast is never right. Good dispatch is deciding well anyway.</p>
+    <p class="kicker">Same habits, different terrain. Mostly I'm just trying to stay curious and keep track of my earbuds.</p>
   </section>
 
   <section id="work">
     <h2>Work</h2>
-    <div class="row">
-      <div class="when">2021 &ndash; now</div>
-      <div class="what"><strong>muGrid Analytics</strong>, Golden CO
-        <span>Senior Engineer (2023&ndash;), Director of Engineering (2021&ndash;23). Microgrid design, economic dispatch, energy management, stochastic load forecasting, real-time controllers.</span></div>
-    </div>
-    <div class="row">
-      <div class="when">2018 &ndash; 2020</div>
-      <div class="what"><strong>muGrid Analytics</strong>, Design Engineer
-        <span>PV and storage microgrid design, equipment selection, load modeling, dispatch optimization.</span></div>
-    </div>
-    <div class="row">
-      <div class="when">2012 &ndash; 2018</div>
-      <div class="what"><strong>Solaflect Energy</strong>, Norwich VT
-        <span>Fourth employee and only electrical engineer. Designed a dual-axis PV tracking controller; designed hundreds of 4&nbsp;kW residential and three 150&nbsp;kW installs.</span></div>
-    </div>
-  </section>
-
-  <section id="education">
-    <h2>Education</h2>
-    <div class="row">
-      <div class="when">2021 &ndash; 2025</div>
-      <div class="what"><strong>PhD, Electrical Engineering</strong>, Politecnico di Milano
-        <span>Computational intelligence for load forecasting and microgrid energy management. Supervisor Emmanuele Ogliari.</span></div>
-    </div>
-    <div class="row">
-      <div class="when">2018 &ndash; 2020</div>
-      <div class="what"><strong>MSc, Electrical Engineering</strong>, Politecnico di Milano
-        <span>Smart Grid track. Thesis on deep learning for PV nowcasting.</span></div>
-    </div>
-    <div class="row">
-      <div class="when">2006 &ndash; 2011</div>
-      <div class="what"><strong>BE &amp; BA, Engineering</strong>, Dartmouth College
-        <span>Thayer School of Engineering. Power electronics and control.</span></div>
-    </div>
+    <p><strong>muGrid Analytics</strong>, Golden CO. Senior Engineer. Microgrid design, load forecasting and dispatch optimization, for remote towns, campuses and everything between.</p>
+    <p class="small">Before that: solar trackers at Solaflect in Vermont, hydro turbines in Rwanda, and a PhD at Politecnico di Milano on forecasting and energy management. Dartmouth engineering before all of it. The <a href="https://docs.google.com/document/d/1JbGrGIS2jf3jPQ3JPzXQ7xM6bkz99uhGWQ_zGdh6t3E/edit?usp=drivesdk">resume</a> has the details.</p>
+    <p class="small"><b>Tools:</b> Python (pandas, TensorFlow, Pyomo), System Advisor Model, MATLAB, HOMER, QGIS, a soldering iron. English native, Italian professional.</p>
   </section>
 
   <section id="research">
@@ -175,37 +176,22 @@
       <li>Day Ahead Electric Load Forecast: A Comprehensive LSTM-EMD Methodology and Several Diverse Case Studies. <em>MDPI Forecasting, 2023.</em></li>
       <li>Strategies for Hybrid Renewable Energy Sources Integration in Smart Grids and Microgrids, in <em>Hybrid Energy Systems: Planning, Operation, and Optimization.</em> IET Publishing, in press.</li>
     </ul>
-    <p class="small" style="margin-top:1.4rem">Grants: U.S. DOE OCED / Wisconsin OSCE, $12.2M (2024); U.S. DOE SunShot Tier 1, $1M (2012).<br>
-    Teaching: Solar PV Systems Lab, Politecnico di Milano (2022&ndash;24); Electronics, Dartmouth (2010&ndash;11).</p>
   </section>
 
-  <section id="toolbox">
-    <h2>Toolbox</h2>
-    <p class="small"><b>Proficient</b> &mdash; Python (pandas, TensorFlow/Keras, Pyomo), System Advisor Model, MATLAB.<br>
-    <b>Capable</b> &mdash; Linux, QGIS, HOMER, SPICE, PowerFactory, Eagle PCB, machining and hand tools.<br>
-    <b>Really bad</b> &mdash; keeping track of earbuds.<br>
-    <b>Languages</b> &mdash; native English, professional Italian.</p>
+  <section id="mountains">
+    <h2>Mountains</h2>
+    <figure class="photo">
+      <img src="img/grignetta-snow.jpeg" alt="Snow on a mountain with a sunset in the background" loading="lazy">
+      <figcaption>The mountains above Lecco.</figcaption>
+    </figure>
+    <blockquote>
+      &ldquo;How we spend our days is, of course, how we spend our lives.&rdquo;
+      <cite>Annie Dillard</cite>
+    </blockquote>
   </section>
-
-  <figure class="photo">
-    <img src="img/grignetta-snow.jpeg" alt="Snow on a mountain with a sunset in the background" loading="lazy">
-    <figcaption>The mountains above Lecco.</figcaption>
-  </figure>
-
-  <blockquote>
-    &ldquo;How we spend our days is, of course, how we spend our lives.&rdquo;
-    <cite>Annie Dillard</cite>
-  </blockquote>
-
-  <nav class="links" aria-label="Elsewhere">
-    <a rel="me" href="https://www.linkedin.com/in/woodjmichael">LinkedIn</a>
-    <a href="https://docs.google.com/document/d/1JbGrGIS2jf3jPQ3JPzXQ7xM6bkz99uhGWQ_zGdh6t3E/edit?usp=drivesdk">Resume</a>
-    <a rel="me" href="https://github.com/woodjmichael">GitHub</a>
-    <a href="#" id="mail">Email</a>
-  </nav>
 
   <footer>
-    <span>&copy; <span id="yr">2025</span> Michael Wood</span>
+    <span>&copy; <span id="yr">2026</span> Michael Wood</span>
     <span>Lecco, Italy</span>
   </footer>
 </main>
@@ -214,6 +200,19 @@
   // Email assembled at runtime to avoid trivial scraping.
   document.getElementById('mail').href = 'mailto:' + ['woodjmichael', 'gmail.com'].join('@');
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Highlight the current section in the menu.
+  (function () {
+    var links = {}, ids = ['story', 'work', 'research', 'mountains'];
+    ids.forEach(function (id) { links[id] = document.querySelector('.bar a[href="#' + id + '"]'); });
+    function update() {
+      var cur = null, y = window.scrollY + 200;
+      ids.forEach(function (id) { var el = document.getElementById(id); if (el && el.offsetTop <= y) cur = id; });
+      ids.forEach(function (id) { links[id].classList.toggle('on', id === cur); });
+    }
+    addEventListener('scroll', update, { passive: true });
+    update();
+  })();
 
   // The original spark.
   var btn = document.getElementById('spark');
