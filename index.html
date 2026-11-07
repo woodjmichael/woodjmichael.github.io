@@ -128,7 +128,6 @@
     <a rel="me" href="https://www.linkedin.com/in/woodjmichael">LinkedIn</a>
     <a href="https://docs.google.com/document/d/1JbGrGIS2jf3jPQ3JPzXQ7xM6bkz99uhGWQ_zGdh6t3E/edit?usp=drivesdk">Resume</a>
     <a rel="me" href="https://github.com/woodjmichael">GitHub</a>
-    <a href="#" id="mail">Email</a>
   </div>
 </nav>
 
@@ -203,8 +202,6 @@
 </main>
 
 <script>
-  // Email assembled at runtime to avoid trivial scraping.
-  document.getElementById('mail').href = 'mailto:' + ['woodjmichael', 'gmail.com'].join('@');
   document.getElementById('yr').textContent = new Date().getFullYear();
 
   // Highlight the current section in the menu.
