@@ -87,7 +87,6 @@
     h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 
     .story p { font-size: 1.15rem; line-height: 1.75; }
-    .story p.kicker { color: var(--muted); font-style: italic; margin-top: 2rem; }
 
     ul.plain { list-style: none; padding: 0; margin: 0; }
     ul.plain li { margin-bottom: .9rem; font-size: .98rem; line-height: 1.55; }
@@ -119,7 +118,6 @@
 <body>
 <nav class="bar" aria-label="Sections">
   <div class="bar-inner">
-    <a href="#story">Story</a>
     <a href="#work">Work</a>
     <a href="#research">Research</a>
     <a href="#mountains">Mountains</a>
@@ -147,15 +145,10 @@
 
   <section id="story" class="story">
     <h2>Story</h2>
-    <p>I live in Lecco. The lake is at the bottom and the rock starts right behind town.</p>
-    <p>I spend as much time as I can up there. Skis on my back, or a rope, or a bike with too many bags.</p>
-    <p>It started with a spark, though. My grandfather, a boat battery and a wrench. I was ten and fascinated.</p>
-    <p>You notice things in the mountains. Snow comes later. Glaciers pull back between visits. Old photos look like other places.</p>
-    <p>I can't fix that with a wrench. But I do know electricity.</p>
-    <p>So I design microgrids. Solar, batteries, and a lot of Python. The goal is simple: burn less of what shouldn't be burned.</p>
-    <p>The mountains also taught me how to plan. You check the forecast, then assume it's wrong, and you leave yourself a margin.</p>
-    <p>Load forecasting is the same game. The forecast is never right. Good dispatch is deciding well anyway.</p>
-    <p class="kicker">Same habits, different terrain. Mostly I'm just trying to stay curious and keep track of my earbuds.</p>
+    <p>Swish thump, swish thump. Cold air becomes visible breath. Dry snow and a green tea smell to this forest.</p>
+    <p>While ski touring I quite literally have hours to think about Ted Chiang short stories, error distributions, and what we're going to do about all this climate change. And sandwiches.</p>
+    <p>I've been thinking and working on sticky problems in electrical engineering and renewable energy for 20 years. I don't have any magical solution, but I've learned that I can move mountains by being well trained, setting a solid but sustainable pace, and talking through it all with my super competent peers.</p>
+    <p>Also by having fun. I love what I do.</p>
   </section>
 
   <section id="work">
@@ -206,7 +199,7 @@
 
   // Highlight the current section in the menu.
   (function () {
-    var links = {}, ids = ['story', 'work', 'research', 'mountains', 'connection'],
+    var links = {}, ids = ['work', 'research', 'mountains', 'connection'],
         bar = document.querySelector('.bar-inner');
     ids.forEach(function (id) { links[id] = document.querySelector('.bar a[href="#' + id + '"]'); });
     function update() {
