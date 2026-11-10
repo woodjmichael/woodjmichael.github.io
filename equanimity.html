@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="light dark">
+  <title>Equanimity</title>
+  <!-- Content is stored encrypted in notes-viewer-claude/equanimity/ and decrypted here in the browser.
+       Rebuild it with: node notes-viewer-claude/build.mjs (see the header of that file) -->
+  <link rel="stylesheet" href="notes-viewer-claude/viewer.css">
+</head>
+<body>
+  <div id="lock">
+    <form id="lock-form" autocomplete="off">
+      <div class="brand">Equanimity<span>.</span></div>
+      <p>This document is encrypted.</p>
+      <input id="pass" type="password" placeholder="Passphrase" autofocus aria-label="Passphrase">
+      <button id="unlock-btn" type="submit">Unlock</button>
+      <div id="lock-error" role="alert"></div>
+    </form>
+  </div>
+
+  <div id="app">
+    <aside id="sidebar">
+      <div class="side-head">
+        <div class="row">
+          <a class="brand" href="#">Equanimity<span>.</span></a>
+          <button class="icon-btn" id="lock-btn" type="button" title="Forget the passphrase for this tab">Lock</button>
+        </div>
+        <div class="side-label">Outline</div>
+      </div>
+      <nav id="outline" aria-label="Document outline"></nav>
+    </aside>
+    <main id="main">
+      <div id="content">
+        <button class="icon-btn" id="menu-btn" type="button">☰ Outline</button>
+        <div class="crumbs" id="crumbs"></div>
+        <article class="md" id="note"></article>
+      </div>
+    </main>
+  </div>
+
+  <script>window.NOTES_VIEWER = { dataDir: 'notes-viewer-claude/equanimity/', mode: 'single', title: 'Equanimity' };</script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+  <script src="notes-viewer-claude/viewer.js"></script>
+</body>
+</html>
