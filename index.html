@@ -37,7 +37,7 @@
       -webkit-font-smoothing: antialiased;
       transition: background .3s, color .3s;
     }
-    main { max-width: 40rem; margin: 0 auto; padding: 4rem 1.5rem 4rem; }
+    main { max-width: 80rem; margin: 0 auto; padding: 4rem 1.5rem 4rem; }
     a { color: inherit; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: .25em; text-decoration-thickness: 1px; transition: text-decoration-color .2s, color .2s; }
     a:hover, a:focus-visible { color: var(--accent); text-decoration-color: var(--accent); }
     a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
@@ -52,7 +52,7 @@
       transition: background .3s;
     }
     .bar-inner {
-      max-width: 52rem; margin: 0 auto; padding: 0 1.5rem;
+      max-width: 80rem; margin: 0 auto; padding: 0 1.5rem;
       display: flex; align-items: center; gap: 1.3rem;
       overflow-x: auto; scrollbar-width: none; white-space: nowrap;
       font: .72rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase;
@@ -94,9 +94,12 @@
     .small { font-size: .95rem; color: var(--muted); }
     .small b { color: var(--fg); font-weight: 600; }
 
-    figure.photo { margin: 0; }
-    figure.photo img { width: 100%; border-radius: 4px; display: block; filter: saturate(.9); }
-    figure.photo figcaption { font-size: .85rem; color: var(--muted); font-style: italic; margin-top: .7rem; }
+    .gallery { column-count: 3; column-gap: .9rem; }
+    .gallery a { display: block; margin-bottom: .9rem; break-inside: avoid; text-decoration: none; }
+    .gallery img { width: 100%; height: auto; display: block; border-radius: 4px; filter: saturate(.95); transition: opacity .2s, filter .2s; }
+    .gallery a:hover img, .gallery a:focus-visible img { opacity: .88; filter: saturate(1.1); }
+    @media (max-width: 60rem) { .gallery { column-count: 2; } }
+    @media (max-width: 30rem) { .gallery { column-count: 1; } }
 
     blockquote { margin: 2.5rem 0 0; padding: 0; text-align: center; font-style: italic; color: var(--muted); font-size: 1.05rem; }
     blockquote cite { display: block; font: .72rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; margin-top: .6rem; font-style: normal; }
@@ -119,7 +122,7 @@
   <div class="bar-inner">
     <a href="#work">Work</a>
     <a href="#research">Research</a>
-    <a href="#mountains">Mountains</a>
+    <a href="#photography">Photography</a>
     <a href="#connection">Connection</a>
     <span class="sep" aria-hidden="true"></span>
     <a rel="me" href="https://www.linkedin.com/in/woodjmichael">LinkedIn</a>
@@ -169,12 +172,24 @@
     </ul>
   </section>
 
-  <section id="mountains">
-    <h2>Mountains</h2>
-    <figure class="photo">
-      <img src="img/grignetta-snow.jpeg" alt="Snow on a mountain with a sunset in the background" loading="lazy">
-      <figcaption>The mountains above Lecco.</figcaption>
-    </figure>
+  <section id="photography">
+    <h2>Photography</h2>
+    <div class="gallery">
+      <a href="img/photography/01-rope-swing.jpg" target="_blank" rel="noopener"><img src="img/photography/thumbs/01-rope-swing.jpg" width="1000" height="668" alt="Someone swinging on a rope over a turquoise lagoon, framed by leaning palm trees" loading="lazy" decoding="async"></a>
+      <a href="img/photography/02-nautical-chart.jpg" target="_blank" rel="noopener"><img src="img/photography/thumbs/02-nautical-chart.jpg" width="1000" height="668" alt="Nautical charts on a table in a patch of sunlight, with a brass weight" loading="lazy" decoding="async"></a>
+      <a href="img/photography/03-rigging.jpg" target="_blank" rel="noopener"><img src="img/photography/thumbs/03-rigging.jpg" width="1000" height="668" alt="Climbing the rigging next to a sail" loading="lazy" decoding="async"></a>
+      <a href="img/photography/04-lemonade-stand.jpg" target="_blank" rel="noopener"><img src="img/photography/thumbs/04-lemonade-stand.jpg" width="1000" height="662" alt="Two kids at a cardboard lemonade stand" loading="lazy" decoding="async"></a>
+      <a href="img/photography/05-sunset-clouds.jpg" target="_blank" rel="noopener"><img src="img/photography/thumbs/05-sunset-clouds.jpg" width="1000" height="668" alt="Dark clouds edged in orange over the sea at sunset" loading="lazy" decoding="async"></a>
+      <a href="img/photography/06-bonfire-day.jpg" target="_blank" rel="noopener"><img src="img/photography/thumbs/06-bonfire-day.jpg" width="668" height="1000" alt="A tall bonfire against a purple dusk sky" loading="lazy" decoding="async"></a>
+      <a href="img/photography/07-bonfire-night.jpg" target="_blank" rel="noopener"><img src="img/photography/thumbs/07-bonfire-night.jpg" width="668" height="1000" alt="A tall bonfire at night" loading="lazy" decoding="async"></a>
+      <a href="img/photography/08-sunglasses.jpg" target="_blank" rel="noopener"><img src="img/photography/thumbs/08-sunglasses.jpg" width="1000" height="668" alt="Mirrored sunglasses on a striped beanie, reflecting a climbing wall" loading="lazy" decoding="async"></a>
+      <a href="img/photography/09-flower-petals.jpg" target="_blank" rel="noopener"><img src="img/photography/thumbs/09-flower-petals.jpg" width="1000" height="668" alt="Flower petals floating on dark blue water" loading="lazy" decoding="async"></a>
+      <a href="img/photography/10-pickup-truck.jpg" target="_blank" rel="noopener"><img src="img/photography/thumbs/10-pickup-truck.jpg" width="1000" height="668" alt="A pickup truck passing a shed built from a shipping container" loading="lazy" decoding="async"></a>
+      <a href="img/photography/11-whitewashed-alley.jpg" target="_blank" rel="noopener"><img src="img/photography/thumbs/11-whitewashed-alley.jpg" width="667" height="1000" alt="A whitewashed alley opening onto the sea, with a palm tree" loading="lazy" decoding="async"></a>
+      <a href="img/photography/12-deck-sextant.jpg" target="_blank" rel="noopener"><img src="img/photography/thumbs/12-deck-sextant.jpg" width="1000" height="579" alt="Crew on the deck of a sailing ship, one holding a sextant" loading="lazy" decoding="async"></a>
+      <a href="img/photography/13-summit-reflection.jpg" target="_blank" rel="noopener"><img src="img/photography/thumbs/13-summit-reflection.jpg" width="1000" height="667" alt="A silhouette reflected in a window, with a snowy mountain at sunset" loading="lazy" decoding="async"></a>
+      <a href="img/photography/14-ridge-sunrise.jpg" target="_blank" rel="noopener"><img src="img/photography/thumbs/14-ridge-sunrise.jpg" width="1000" height="667" alt="A snowy ridge at sunrise above the lakes" loading="lazy" decoding="async"></a>
+    </div>
     <blockquote>
       &ldquo;How we spend our days is, of course, how we spend our lives.&rdquo;
       <cite>Annie Dillard</cite>
@@ -192,7 +207,7 @@
 
   // Highlight the current section in the menu.
   (function () {
-    var links = {}, ids = ['work', 'research', 'mountains', 'connection'],
+    var links = {}, ids = ['work', 'research', 'photography', 'connection'],
         bar = document.querySelector('.bar-inner');
     ids.forEach(function (id) { links[id] = document.querySelector('.bar a[href="#' + id + '"]'); });
     function update() {
